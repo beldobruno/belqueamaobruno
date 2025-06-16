@@ -1,103 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pedido Especial para Bruno</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #ffe6f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    flex-direction: column;
-    text-align: center;
-  }
-  #question {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: #d6336c;
-  }
-  .btn {
-    background-color: #d6336c;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    font-size: 1.2em;
-    margin: 10px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  .btn:hover {
-    background-color: #b12754;
-  }
-  #noBtn {
-    position: relative;
-    transition: all 0.3s ease;
-  }
-  #yesBtn.fullscreen {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    font-size: 4em;
-    border-radius: 0;
-    z-index: 1000;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Você quer ser meu neném pra sempre, amor?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fef6f6;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #d6336c;
+    }
+    #message {
+      margin: 20px 0;
+      font-size: 1.2rem;
+      color: #333;
+    }
+    button {
+      font-size: 1.2rem;
+      padding: 12px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #btnYes {
+      background-color: #e91e63;
+      color: white;
+      min-width: 120px;
+      box-shadow: 0 5px 15px rgba(233,30,99,0.4);
+    }
+    #btnNo {
+      background-color: #bbb;
+      color: #444;
+      min-width: 120px;
+      position: relative;
+    }
+    #btnNo.hidden {
+      display: none;
+    }
+    #btnYes.fullscreen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      font-size: 3rem;
+      border-radius: 0;
+      box-shadow: none;
+      z-index: 1000;
+    }
+    #finalMessage {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #d6336c;
+      font-weight: bold;
+    }
+    #gifCat {
+      margin-top: 15px;
+      max-width: 250px;
+      border-radius: 15px;
+    }
+  </style>
 </head>
 <body>
-  <div id="question">Quer namorar comigo, meu amor?</div>
-  <button id="yesBtn" class="btn">Sim</button>
-  <button id="noBtn" class="btn">NÃ£o</button>
+
+  <h1>Você quer ser meu neném pra sempre, amor?</h1>
+
+  <div id="message"></div>
+
+  <button id="btnYes">Sim</button>
+  <button id="btnNo">Não</button>
+
+  <div id="finalMessage" style="display:none;">
+    Eeee eu sabia que você ia aceitar, eu te amo meu bebê 
+    <br />
+    <img id="gifCat" src="https://media.giphy.com/media/WtG6lriSEDxGLsL1Pj/giphy.gif" alt="Gatinhos fofos" />
+  </div>
 
 <script>
-  const yesBtn = document.getElementById('yesBtn');
-  const noBtn = document.getElementById('noBtn');
-  const question = document.getElementById('question');
+  const btnYes = document.getElementById('btnYes');
+  const btnNo = document.getElementById('btnNo');
+  const message = document.getElementById('message');
+  const finalMessage = document.getElementById('finalMessage');
+  const title = document.querySelector('h1');
 
   let noClickCount = 0;
-  let yesStep = 0;
 
-  const noPhrases = [
-    "Amor, porque nÃ£o? ðŸ¥º",
-    "NenÃ©m? ðŸ¥º",
-    "VocÃª nÃ£o me ama mais? ðŸ¥º",
-    "Por favor, amor...",
-    "Diz que sim, vida... Eu imploro meu nenÃ©m"
-  ];
-
-  noBtn.addEventListener('click', () => {
-    if (noClickCount < noPhrases.length) {
-      noBtn.textContent = noPhrases[noClickCount];
-      noClickCount++;
-    }
-    if (noClickCount === noPhrases.length) {
-      noBtn.style.display = 'none';
-      yesBtn.classList.add('fullscreen');
+  btnYes.addEventListener('click', () => {
+    if(btnYes.textContent === 'Sim'){
+      btnYes.textContent = 'Você tem certeza? me ama mesmo? sim?';
+      title.textContent = 'Quer namorar comigo, meu amor?';
+      message.textContent = '';
+    } else if(btnYes.textContent === 'Você tem certeza? me ama mesmo? sim?'){
+      title.textContent = 'Você quer mesmo ser meu neném pra sempre? Sim??';
+      message.textContent = '';
+    } else {
+      btnYes.style.display = 'none';
+      btnNo.style.display = 'none';
+      finalMessage.style.display = 'block';
     }
   });
 
-  yesBtn.addEventListener('click', () => {
-    yesStep++;
-    if (yesStep === 1) {
-      yesBtn.textContent = "VocÃª quer mesmo ser meu nenÃ©m pra sempre? Sim??";
-      question.textContent = "Quer namorar comigo, meu amor?";
-    } else if (yesStep === 2) {
-      document.body.innerHTML = `
-        <div style="font-size:2em; color:#d6336c; margin-bottom:10px;">
-          Eeee eu sabia que vocÃª ia aceitar, eu te amo meu bebÃª
-        </div>
-        <img src="https://media.giphy.com/media/WtG6lriSEDxGLsL1Pj/giphy.gif" alt="Gif fofo de gatinhos" style="width:150px; margin-top:10px;">
-      `;
+  const noMessages = [
+    "Amor, porque não? ",
+    "Neném? ",
+    "Você não me ama mais? ",
+    "Por favor, amor...",
+    "Diz que sim, vida... Eu imploro meu neném"
+  ];
+
+  btnNo.addEventListener('click', () => {
+    if(noClickCount < noMessages.length){
+      btnNo.textContent = noMessages[noClickCount];
+      btnYes.style.transform = `scale(${1 + noClickCount * 0.3})`;
+      noClickCount++;
+    } 
+
+    if(noClickCount === noMessages.length){
+      btnNo.classList.add('hidden');
+      btnYes.classList.add('fullscreen');
     }
   });
 </script>
 
 </body>
 </html>
-#7300FF
