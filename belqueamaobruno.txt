@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pedido Especial para Bruno</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #ffe6f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    text-align: center;
+  }
+  #question {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #d6336c;
+  }
+  .btn {
+    background-color: #d6336c;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.2em;
+    margin: 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .btn:hover {
+    background-color: #b12754;
+  }
+  #noBtn {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  #yesBtn.fullscreen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    font-size: 4em;
+    border-radius: 0;
+    z-index: 1000;
+  }
+</style>
+</head>
+<body>
+  <div id="question">Quer namorar comigo, meu amor?</div>
+  <button id="yesBtn" class="btn">Sim</button>
+  <button id="noBtn" class="btn">Não</button>
+
+<script>
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const question = document.getElementById('question');
+
+  let noClickCount = 0;
+  let yesStep = 0;
+
+  const noPhrases = [
+    "Amor, porque não? 🥺",
+    "Neném? 🥺",
+    "Você não me ama mais? 🥺",
+    "Por favor, amor...",
+    "Diz que sim, vida... Eu imploro meu neném"
+  ];
+
+  noBtn.addEventListener('click', () => {
+    if (noClickCount < noPhrases.length) {
+      noBtn.textContent = noPhrases[noClickCount];
+      noClickCount++;
+    }
+    if (noClickCount === noPhrases.length) {
+      noBtn.style.display = 'none';
+      yesBtn.classList.add('fullscreen');
+    }
+  });
+
+  yesBtn.addEventListener('click', () => {
+    yesStep++;
+    if (yesStep === 1) {
+      yesBtn.textContent = "Você quer mesmo ser meu neném pra sempre? Sim??";
+      question.textContent = "Quer namorar comigo, meu amor?";
+    } else if (yesStep === 2) {
+      document.body.innerHTML = `
+        <div style="font-size:2em; color:#d6336c; margin-bottom:10px;">
+          Eeee eu sabia que você ia aceitar, eu te amo meu bebê
+        </div>
+        <img src="https://media.giphy.com/media/WtG6lriSEDxGLsL1Pj/giphy.gif" alt="Gif fofo de gatinhos" style="width:150px; margin-top:10px;">
+      `;
+    }
+  });
+</script>
+
+</body>
+</html>
+#7300FF
